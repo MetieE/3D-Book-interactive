@@ -53,7 +53,7 @@ body {
 
 .front {
     z-index: 1;
-    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
     border-left: 3px solid powderblue;
 }
 
