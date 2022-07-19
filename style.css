@@ -14,11 +14,20 @@
 
 body {
     height: 100vh;
-    display: flex;
+    /* display: block; */
     justify-content: center;
     align-items: center;
     font-family: sans-serif;
     background-color: black;
+}
+
+.title{
+    justify-content: center;
+    align-items: center;
+    display: flex; 
+    margin:auto; 
+    position: relative; 
+    color: white;
 }
 
 /* Book */
@@ -27,6 +36,7 @@ body {
     width: 500px;
     height: 350px;
     transition: transform 0.5s;
+    /* margin: auto; */
 }
 
 .paper {
