@@ -13,10 +13,6 @@
 }
 
 body {
-    height: 100vh;
-    /* display: block; */
-    justify-content: center;
-    align-items: center;
     font-family: sans-serif;
     background-color: black;
 }
@@ -29,9 +25,16 @@ body {
     position: relative; 
     color: white;
 }
+.flip-book{
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+}
 
 /* Book */
 .book {
+   
     position: relative;
     width: 500px;
     height: 350px;
