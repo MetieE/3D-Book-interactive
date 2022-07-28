@@ -55,8 +55,8 @@ let maxLocation = numOfPapers + 1;
 
 function openBook() {
     book.style.transform = "translateX(50%)";
-    prevBtn.style.transform = "translateX(-300px)";
-    nextBtn.style.transform = "translateX(300px)";
+    prevBtn.style.transform = "translateX(-350px)";
+    nextBtn.style.transform = "translateX(350px)";
 }
 
 function closeBook(isAtBeginning) {
@@ -122,15 +122,14 @@ function goNextPage() {
                 paper11.classList.add("flipped");
                 paper11.style.zIndex = 11;
                 break;
-                case 12:
-                    paper12.classList.add("flipped");
-                    paper12.style.zIndex = 12;
-                    break;    
+            case 12:
+                paper12.classList.add("flipped");
+                paper12.style.zIndex = 12;
+                break;    
             case 13:
                 paper13.classList.add("flipped");
                 paper13.style.zIndex = 13;
-                
-                break; 
+                                break; 
             case 14:
             
                 paper14.classList.add("flipped");
@@ -143,10 +142,8 @@ function goNextPage() {
             case 16:
                 paper16.classList.add("flipped");
                 paper16.style.zIndex = 16;
-                
                 break; 
-            case 17:
-            
+            case 17:            
                 paper17.classList.add("flipped");
                 paper17.style.zIndex = 17;
                 break;
@@ -156,11 +153,9 @@ function goNextPage() {
                 break;
             case 19:
                 paper19.classList.add("flipped");
-                paper19.style.zIndex = 19;
-                
+                paper19.style.zIndex = 19;                
                 break; 
-            case 20:
-            
+            case 20:            
                 paper20.classList.add("flipped");
                 paper20.style.zIndex = 20;
                 break;
@@ -173,8 +168,7 @@ function goNextPage() {
                 paper22.style.zIndex = 22;
                 
                 break; 
-            case 23:
-                
+            case 23:                
                 paper23.classList.add("flipped");
                 paper23.style.zIndex = 23;
                 break;
@@ -184,11 +178,9 @@ function goNextPage() {
                 break;
             case 25:
                 paper25.classList.add("flipped");
-                paper25.style.zIndex = 25;
-            
+                paper25.style.zIndex = 25;            
                 break; 
-            case 26:
-                
+            case 26:                
                 paper26.classList.add("flipped");
                 paper26.style.zIndex = 26;
                 break;
@@ -198,11 +190,9 @@ function goNextPage() {
                 break;
             case 28:
                 paper28.classList.add("flipped");
-                paper28.style.zIndex = 28;
-                
+                paper28.style.zIndex = 28;                
                 break; 
-            case 29:
-                
+            case 29:                
                 paper29.classList.add("flipped");
                 paper29.style.zIndex = 29;
                 break;
@@ -212,11 +202,9 @@ function goNextPage() {
                 break;
             case 31:
                 paper31.classList.add("flipped");
-                paper31.style.zIndex = 31;
-                
+                paper31.style.zIndex = 31;                
                 break; 
-            case 32:
-            
+            case 32:            
                 paper32.classList.add("flipped");
                 paper32.style.zIndex = 32;
                 break;
@@ -226,11 +214,9 @@ function goNextPage() {
                 break;
             case 34:
                 paper34.classList.add("flipped");
-                paper34.style.zIndex = 34;
-                
+                paper34.style.zIndex = 34;                
                 break;
-            case 35:
-             
+            case 35:             
                 paper35.classList.add("flipped");
                 paper35.style.zIndex = 35;
                 break;
@@ -240,11 +226,9 @@ function goNextPage() {
                 break;
             case 37:
                 paper37.classList.add("flipped");
-                paper37.style.zIndex = 37;
-                
+                paper37.style.zIndex = 37;                
                 break;
-            case 38:
-                
+            case 38:                
                 paper38.classList.add("flipped");
                 paper38.style.zIndex = 38;
                 closeBook(false);
@@ -265,7 +249,6 @@ function goPrevPage() {
                 paper1.style.zIndex = 38;
                 break;
             case 3:
-
                 paper2.classList.remove("flipped");
                 paper2.style.zIndex = 37;
                 break;
@@ -309,10 +292,10 @@ function goPrevPage() {
                 paper11.classList.remove("flipped");
                 paper11.style.zIndex = 28;
                 break;
-                case 13:
-                    paper12.classList.remove("flipped");
-                    paper12.style.zIndex = 27;
-                    break;    
+            case 13:
+                paper12.classList.remove("flipped");
+                paper12.style.zIndex = 27;
+                break;    
             case 14:
                 paper13.classList.remove("flipped");
                 paper13.style.zIndex = 26;
@@ -413,11 +396,9 @@ function goPrevPage() {
                 break;
             case 35:
                 paper34.classList.remove("flipped");
-                paper34.style.zIndex = 5;
-                
+                paper34.style.zIndex = 5;                
                 break;
-            case 36:
-                
+            case 36:                
                 paper35.classList.remove("flipped");
                 paper35.style.zIndex = 4;
                 break;
@@ -427,14 +408,12 @@ function goPrevPage() {
                 break;
             case 38:
                 paper37.classList.remove("flipped");
-                paper37.style.zIndex = 2;
-                
+                paper37.style.zIndex = 2;                
                 break;
-            case 38:
+            case 39:
                 openBook();
                 paper38.classList.remove("flipped");
-                paper38.style.zIndex = 1;
-                
+                paper38.style.zIndex = 1;                
                 break;
             default:
                 throw new Error("unkown state");
