@@ -15,15 +15,21 @@
 
 .home-btn {
     font-family: ff-scala-sans-pro, sans-serif;
-    padding-top: 0px;
-    position: fixed;
-    left: 0;
+    /* padding-top: 0px; */
+    align: left;
+    /* left: 0; */
     bottom: 10px;
     color:white;
     text-align: left;
  }
 
+ .text {
+    padding-top: 5px;
+    color: #F1F2F2;
+    align: center;
+ }
 .footer {
+    display: flex;
     padding-top: 5px;
     position: fixed;
     left: 0;
@@ -109,7 +115,7 @@ body {
 }
 
 .img-with-text img {
-    height: 610px;
+    height: 550px;
 }
 .caption{
 
