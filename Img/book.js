@@ -401,7 +401,6 @@ modalImg.addEventListener("load", function(){
         }
     );
 
-
     // load pages
     pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 

@@ -12,13 +12,18 @@
             transition-delay: 1s;
         
         } */
+
 /* 
 @media screen and (min-width: 1026px) {
     .book .paper .img .img-with-text .header .body .header1 .container .fa .far .fas .hidden .caption .home-btn .footer .btn-prev .btn-next
+
      {
          
             width: 100%;
             
+        }
+       .img .zoomE .img-with-text{
+            width:100%;
         }
        
     }
@@ -30,6 +35,9 @@
            
             width: 100%;
                 
+        }
+       .img.zoomE .img-with-text{
+            width:100%
         }
            
         }
@@ -60,7 +68,9 @@
                 width: 50%;
                 padding-top: 5px;
             }
+
         }      */
+
 
         
       .pinch-zoom-container {
@@ -70,58 +80,94 @@
 
       }
 
-        .header {
-            position: fixed;
-            /* left: 0; */
-            top: 20px;
+
+.img-with-text{
+    position:relative;
+    font: 14px FF-Scala Sans Pro;
+    color:  #e5d1b9;
+    top:5px; 
+    text-align:left;
+          
+        }
+
+.caption{
+    font-style: italic;
+    color: #e5d1b9;
+    line-height: 1.6;
+            text-align:center;
+            width: 800px;
+            font-family: ff-scala-sans-pro, sans-serif;
+            font-size: 14px;    
+        }
+        
+
+
+
+h1 {
+    color:  #e5d1b9;
+}
+
+.header1 {
+    position: fixed;
+    left: 0;
+    top: 100px;
+    width: 100%;
+    /* background: radial-gradient(#808285, #141510); */
+    text-align: center;
+    color: #e5d1b9;
+    font-size: 15px;
+    line-height: 2; 
+    font-family: ff-scala-sans-pro, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.header {
+    position: fixed;
+    left: 0;
+    top: 50px;
+   
+    color: #ce4936;
+
             /* width: 100%; */
             /* background: radial-gradient(#141510); */
             /* color: white; */
             text-align: center;
-            color: #A4A4A1;
+           
             font-size: 40px;
             line-height: 2; 
             font-family: ff-scala-sans-pro, sans-serif;
             font-weight: 700;
             /* font-style: normal; */
         }
-        .header1 {
-            position: fixed;
-            left: 0;
-            top: 100px;
-            width: 100%;
-            background: radial-gradient(#808285, #141510);
-            text-align: center;
-            color: #A4A4A1;
-            font-size: 15px;
-            line-height: 1.5; 
-            font-family: ff-scala-sans-pro, sans-serif;
-            font-weight: 400;
-            font-style: normal;
-        }
-        .footer {
+        
+.footer {
+    
+    /* background: radial-gradient( #808285, #141510); */
+    color:  #e5d1b9;
+    text-align: center;
+    font-family: ff-scala-sans-pro, sans-serif;
+
             position: fixed;
             /* left: 0; */
             bottom: 10px;
             width: 100%;
-            background: radial-gradient( #808285, #141510);
-            color: #F1F2F2;
-            text-align: center;
-            font-family: ff-scala-sans-pro, sans-serif;
+            
             padding-top: 20px;
             padding-bottom: 15px;
          }
-        .home-btn {
+         
+         
+
+.home-btn {
+
+    color: #e5d1b9;
+    text-align: left;
             /* font-family: ff-scala-sans-pro, sans-serif; */
             /* padding-top: 0px; */
             position: fixed;
             /* left: 0;
             bottom: 10px; */
-            color:white;
-            text-align: left;
          }
-        
-        
         
          /* .cover{
             color: white;
@@ -163,13 +209,7 @@
            background-color: #000000;
         }
 
-        .img-with-text{
-            position:relative;
-            font: 14px FF-Scala Sans Pro;
-            color: #F1F2F2;
-            top:5px; 
-            text-align:center;
-        }
+      
         *{
             margin: auto;
             padding:auto;
@@ -187,14 +227,6 @@
             font-size: 20px;    
             padding: 10%;
             padding-top: 20%;
-        }
-        .caption{
-            text-align:center;
-            color:#F1F2F2;
-            line-height: 1.4;
-            width: 800px;
-            font-family: ff-scala-sans-pro, sans-serif;
-            font-size: 14px;    
         }
         
         /* Controller Buttons */
