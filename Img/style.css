@@ -1,4 +1,3 @@
-
 *{
     margin: auto;
     padding:auto;
@@ -28,7 +27,7 @@ body {
 
 .sub-header {
     position: fixed;
-    top: 100px;
+    top: 120px;
     width: 100%;
     text-align: center;
     color: #e5d1b9;
@@ -48,7 +47,7 @@ body {
     bottom: 10px;
     width: 100%;
     padding-top: 20px;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     line-height: 1.5; 
 }       
 
@@ -56,6 +55,7 @@ body {
     color: #e5d1b9;
     text-align: left;
     position: fixed;
+    padding-left: 20px;
 }
         
     
@@ -66,14 +66,14 @@ body {
 }
 
 .book-desc{
-    text-align:center;
+    text-align: justify;
     color:#e5d1b9;
     line-height: 2;
     /* width: 800px; */
     font-family: ff-scala-sans-pro, sans-serif;
     font-size: 20px;    
-    padding: 10%;
-    padding-top: 20%;
+    padding: 20%;
+    padding-top: 10%;
 }
 
 .page-bkg {
@@ -85,7 +85,7 @@ body {
     font: 14px FF-Scala Sans Pro;
     color:  #e5d1b9;
     top:5px; 
-    text-align:left;
+    text-align:center;
 }
 
 .img-with-text img {
@@ -99,7 +99,7 @@ body {
     text-align:center;
     width: 800px;
     font-family: ff-scala-sans-pro, sans-serif;
-    font-size: 14px;    
+    font-size: 14px; 
 }
         
 /* Controller Buttons */
@@ -175,7 +175,7 @@ i {
     to {transform:scale(1)}
 }
 
-/* The Close Button */
+/* Modal Close Button */
 .close {
     position: absolute;
     top: 15px;
@@ -186,6 +186,7 @@ i {
     transition: 0.3s;
 }
 
+/*Modal Zoom in btn*/
 .zoom {
     position: absolute;
     top: 30px;
@@ -220,6 +221,5 @@ i {
     overflow: hidden;
     height: 90%;
     width: 1248px;
-
 }
 

@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function() {
   var modalImg = document.getElementById("modalImg");
   //--------------------------------------------------------------------------------------------------------  
@@ -158,11 +156,11 @@ document.addEventListener('DOMContentLoaded', function() {
   var zoomOut = document.getElementById("zoomOut");
   zoomIn.addEventListener("click",function(){
     
-    zoomCenter(2);
+    zoomCenter(1.25); //Adjust this number to set how much you scale in and out
   });
   zoomOut.addEventListener("click", function(){
 
-    zoomCenter(1/2);
+    zoomCenter(.80); //Adjust this number to set how much you scale in and out .25 will zoom out all the way 1 will not zoom out
   });
 
   modalImg.addEventListener("load", function(){
@@ -233,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   hammer.on('doubletap', function (e) {
     var c = rawCenter(e);
-    zoomAround(2, c.x, c.y);
+    zoomAround(1.25, c.x, c.y);
   });
 
   });
