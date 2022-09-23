@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-     
+    var titlePage = document.querySelector(".title-page");
+        setTimeout(fadeOut, 2000);
+        setTimeout(hideImage, 2200);
+    function fadeOut(){
+        titlePage.style.animation = 'fadeOut 0.2s forwards';
+    }
+    function hideImage(){
+        titlePage.style.display = 'none';
+    } 
+
     document.querySelector(".container").classList.remove("hidden");
 
     const pageFlip = new St.PageFlip(
