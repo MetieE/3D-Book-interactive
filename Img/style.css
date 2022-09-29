@@ -165,7 +165,7 @@ i {
 } */
 
 /* Add Animation - Zoom in the Modal */
-.modal-content, #mod-caption {
+/* .modal-content, #mod-caption {
     animation-name: zoom;
     animation-duration: 0.6s;
 }
@@ -173,7 +173,7 @@ i {
 @keyframes zoom {
     from {transform:scale(0)}
     to {transform:scale(1)}
-}
+} */
 
 /* Modal Close Button */
 .close {
@@ -211,11 +211,11 @@ i {
 } */
 
 /* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
+/* @media only screen and (max-width: 700px){
     .modal-content {
     width: 100%;
     }
-}
+} */
 
 .pinch-zoom-container {
     overflow: hidden;

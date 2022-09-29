@@ -30,67 +30,67 @@ document.addEventListener('DOMContentLoaded', function() {
   // We need to disable the following event handlers so that the browser doesn't try to
   // automatically handle our image drag gestures.
   var disableImgEventHandlers = function () {
-  var events = ['onclick', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',
-                'onmouseup', 'ondblclick', 'onfocus', 'onblur'];
+    var events = ['onclick', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',
+                  'onmouseup', 'ondblclick', 'onfocus', 'onblur'];
 
-  events.forEach(function (event) {
-    modalImg[event] = function () {
-      return false;
-    };
-  });
+    events.forEach(function (event) {
+      modalImg[event] = function () {
+        return false;
+      };
+    });
   };
 
   // Traverse the DOM to calculate the absolute position of an element
   var absolutePosition = function (el) {
-  var x = 0,
-    y = 0;
+    var x = 0,
+      y = 0;
 
-  while (el !== null) {
-    x += el.offsetLeft;
-    y += el.offsetTop;
-    el = el.offsetParent;
-  }
-  console.log( { x: x, y: y });
-  return { x: x, y: y };
+    while (el !== null) {
+      x += el.offsetLeft;
+      y += el.offsetTop;
+      el = el.offsetParent;
+    }
+    console.log( { x: x, y: y });
+    return { x: x, y: y };
   };
 
   var restrictScale = function (scale) {
-  if (scale < MIN_SCALE) {
-    scale = MIN_SCALE;
-  } else if (scale > MAX_SCALE) {
-    scale = MAX_SCALE;
-  }
-  console.log(scale);
-  return scale;
+    if (scale < MIN_SCALE) {
+      scale = MIN_SCALE;
+    } else if (scale > MAX_SCALE) {
+      scale = MAX_SCALE;
+    }
+    console.log(scale);
+    return scale;
   };
 
   var restrictRawPos = function (pos, viewportDim, imgDim) {
-  if (pos < viewportDim/scale - imgDim) { // too far left/up?
-    pos = viewportDim/scale - imgDim;
-  } else if (pos > 0) { // too far right/down?
-    pos = 0;
-  }
-  return pos;
+    if (pos < viewportDim/scale - imgDim) { // too far left/up?
+      pos = viewportDim/scale - imgDim;
+    } else if (pos > 0) { // too far right/down?
+      pos = 0;
+    }
+    return pos;
   };
 
-  var updateLastPos = function (deltaX, deltaY) {
-  lastX = x;
-  lastY = y;
+  var updateLastPos = function () {
+    lastX = x;
+    lastY = y;
   };
 
   var translate = function (deltaX, deltaY) {
-  // We restrict to the min of the viewport width/height or current width/height as the
-  // current width/height may be smaller than the viewport width/height
+    // We restrict to the min of the viewport width/height or current width/height as the
+    // current width/height may be smaller than the viewport width/height
 
-  var newX = restrictRawPos(lastX + deltaX/scale,
-                            Math.min(viewportWidth, curWidth), imgWidth);
-  x = newX;
-  modalImg.style.marginLeft = Math.ceil(newX*scale) + 'px';
+    var newX = restrictRawPos(lastX + deltaX/scale,
+                              Math.min(viewportWidth, curWidth), imgWidth);
+    x = newX;
+    modalImg.style.marginLeft = Math.ceil(newX*scale) + 'px';
 
-  var newY = restrictRawPos(lastY + deltaY/scale,
-                            Math.min(viewportHeight, curHeight), imgHeight);
-  y = newY;
-  modalImg.style.marginTop = Math.ceil(newY*scale) + 'px';
+    var newY = restrictRawPos(lastY + deltaY/scale,
+                              Math.min(viewportHeight, curHeight), imgHeight);
+    y = newY;
+    modalImg.style.marginTop = Math.ceil(newY*scale) + 'px';
   };
 
   var zoom = function (scaleBy) {
