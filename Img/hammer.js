@@ -1,239 +1,237 @@
-document.addEventListener('DOMContentLoaded', function() {
-  var modalImg = document.getElementById("modalImg");
-  //--------------------------------------------------------------------------------------------------------  
-  var MIN_SCALE = 1; // 1=scaling when first loaded
-  var MAX_SCALE = 8;
 
-  // HammerJS fires "pinch" and "pan" events that are cumulative in nature and not
-  // deltas. Therefore, we need to store the "last" values of scale, x and y so that we can
-  // adjust the UI accordingly. It isn't until the "pinchend" and "panend" events are received
-  // that we can set the "last" values.
 
-  // Our "raw" coordinates are not scaled. This allows us to only have to modify our stored
-  // coordinates when the UI is updated. It also simplifies our calculations as these
-  // coordinates are without respect to the current scale.
+//   //--------------------------------------------------------------------------------------------------------  
+//   var MIN_SCALE = 1; // 1=scaling when first loaded
+//   var MAX_SCALE = 8;
 
-  var imgWidth = null;
-  var imgHeight = null;
-  var viewportWidth = null;
-  var viewportHeight = null;
-  var scale = null;
-  var lastScale = null;
-  var container = null;
-  // var img = null;
-  var x = 0;
-  var lastX = 0;
-  var y = 0;
-  var lastY = 0;
-  var pinchCenter = null;
+//   // HammerJS fires "pinch" and "pan" events that are cumulative in nature and not
+//   // deltas. Therefore, we need to store the "last" values of scale, x and y so that we can
+//   // adjust the UI accordingly. It isn't until the "pinchend" and "panend" events are received
+//   // that we can set the "last" values.
 
-  // We need to disable the following event handlers so that the browser doesn't try to
-  // automatically handle our image drag gestures.
-  var disableImgEventHandlers = function () {
-    var events = ['onclick', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',
-                  'onmouseup', 'ondblclick', 'onfocus', 'onblur'];
+//   // Our "raw" coordinates are not scaled. This allows us to only have to modify our stored
+//   // coordinates when the UI is updated. It also simplifies our calculations as these
+//   // coordinates are without respect to the current scale.
 
-    events.forEach(function (event) {
-      modalImg[event] = function () {
-        return false;
-      };
-    });
-  };
+//   var imgWidth = null;
+//   var imgHeight = null;
+//   var viewportWidth = null;
+//   var viewportHeight = null;
+//   var scale = null;
+//   var lastScale = null;
+//   var container = null;
+//   // var img = null;
+//   var modalImg = document.getElementById("modalImg");
+//   var x = 0;
+//   var lastX = 0;
+//   var y = 0;
+//   var lastY = 0;
+//   var pinchCenter = null;
 
-  // Traverse the DOM to calculate the absolute position of an element
-  var absolutePosition = function (el) {
-    var x = 0,
-      y = 0;
+//   // We need to disable the following event handlers so that the browser doesn't try to
+//   // automatically handle our image drag gestures.
+//   var disableImgEventHandlers = function () {
+//     var events = ['onclick', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',
+//                   'onmouseup', 'ondblclick', 'onfocus', 'onblur'];
 
-    while (el !== null) {
-      x += el.offsetLeft;
-      y += el.offsetTop;
-      el = el.offsetParent;
-    }
-    console.log( { x: x, y: y });
-    return { x: x, y: y };
-  };
+//     events.forEach(function (event) {
+//       modalImg[event] = function () {
+//         return false;
+//       };
+//     });
+//   };
 
-  var restrictScale = function (scale) {
-    if (scale < MIN_SCALE) {
-      scale = MIN_SCALE;
-    } else if (scale > MAX_SCALE) {
-      scale = MAX_SCALE;
-    }
-    console.log(scale);
-    return scale;
-  };
+//   // Traverse the DOM to calculate the absolute position of an element
+//   var absolutePosition = function (el) {
+//     var x = 0,
+//       y = 0;
 
-  var restrictRawPos = function (pos, viewportDim, imgDim) {
-    if (pos < viewportDim/scale - imgDim) { // too far left/up?
-      pos = viewportDim/scale - imgDim;
-    } else if (pos > 0) { // too far right/down?
-      pos = 0;
-    }
-    return pos;
-  };
+//     while (el !== null) {
+//       x += el.offsetLeft;
+//       y += el.offsetTop;
+//       el = el.offsetParent;
+//     }
+//     console.log( { x: x, y: y });
+//     return { x: x, y: y };
+//   };
 
-  var updateLastPos = function () {
-    lastX = x;
-    lastY = y;
-  };
+//   var restrictScale = function (scale) {
+//     if (scale < MIN_SCALE) {
+//       scale = MIN_SCALE;
+//     } else if (scale > MAX_SCALE) {
+//       scale = MAX_SCALE;
+//     }
+//     console.log(scale);
+//     return scale;
+//   };
 
-  var translate = function (deltaX, deltaY) {
-    // We restrict to the min of the viewport width/height or current width/height as the
-    // current width/height may be smaller than the viewport width/height
+//   var restrictRawPos = function (pos, viewportDim, imgDim) {
+//     if (pos < viewportDim/scale - imgDim) { // too far left/up?
+//       pos = viewportDim/scale - imgDim;
+//     } else if (pos > 0) { // too far right/down?
+//       pos = 0;
+//     }
+//     return pos;
+//   };
 
-    var newX = restrictRawPos(lastX + deltaX/scale,
-                              Math.min(viewportWidth, curWidth), imgWidth);
-    x = newX;
-    modalImg.style.marginLeft = Math.ceil(newX*scale) + 'px';
+//   var updateLastPos = function () {
+//     lastX = x;
+//     lastY = y;
+//   };
 
-    var newY = restrictRawPos(lastY + deltaY/scale,
-                              Math.min(viewportHeight, curHeight), imgHeight);
-    y = newY;
-    modalImg.style.marginTop = Math.ceil(newY*scale) + 'px';
-  };
+//   var translate = function (deltaX, deltaY) {
+//     // We restrict to the min of the viewport width/height or current width/height as the
+//     // current width/height may be smaller than the viewport width/height
 
-  var zoom = function (scaleBy) {
-  scale = restrictScale(lastScale*scaleBy);
+//     var newX = restrictRawPos(lastX + deltaX/scale,
+//                               Math.min(viewportWidth, curWidth), imgWidth);
+//     x = newX;
+//     modalImg.style.marginLeft = Math.ceil(newX*scale) + 'px';
 
-  curWidth = imgWidth*scale;
-  curHeight = imgHeight*scale;
-  modalImg.style.width = Math.ceil(curWidth) + 'px';
-  modalImg.style.height = Math.ceil(curHeight) + 'px';
+//     var newY = restrictRawPos(lastY + deltaY/scale,
+//                               Math.min(viewportHeight, curHeight), imgHeight);
+//     y = newY;
+//     modalImg.style.marginTop = Math.ceil(newY*scale) + 'px';
+//   };
 
-  // Adjust margins to make sure that we aren't out of bounds
-  translate(0, 0);
-  };
+//   var zoom = function (scaleBy) {
+//   scale = restrictScale(lastScale*scaleBy);
 
-  var rawCenter = function (e) {
-  var pos = absolutePosition(container);
+//   curWidth = imgWidth*scale;
+//   curHeight = imgHeight*scale;
+//   modalImg.style.width = Math.ceil(curWidth) + 'px';
+//   modalImg.style.height = Math.ceil(curHeight) + 'px';
 
-  // We need to account for the scroll position
-  var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
-  var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
+//   // Adjust margins to make sure that we aren't out of bounds
+//   translate(0, 0);
+//   };
 
-  var zoomX = -x + (e.center.x - pos.x + scrollLeft)/scale;
-  var zoomY = -y + (e.center.y - pos.y + scrollTop)/scale;
+//   var rawCenter = function (e) {
+//   var pos = absolutePosition(container);
 
-  return { x: zoomX, y: zoomY };
-  };
+//   // We need to account for the scroll position
+//   var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
+//   var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
 
-  var updateLastScale = function () {
-  lastScale = scale;
-  };
+//   var zoomX = -x + (e.center.x - pos.x + scrollLeft)/scale;
+//   var zoomY = -y + (e.center.y - pos.y + scrollTop)/scale;
 
-  var zoomAround = function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
-  // Zoom
-  zoom(scaleBy);
+//   return { x: zoomX, y: zoomY };
+//   };
 
-  // New raw center of viewport
-  var rawCenterX = -x + Math.min(viewportWidth, curWidth)/2/scale;
-  var rawCenterY = -y + Math.min(viewportHeight, curHeight)/2/scale;
+//   var updateLastScale = function () {
+//   lastScale = scale;
+//   };
 
-  // Delta
-  var deltaX = (rawCenterX - rawZoomX)*scale;
-  var deltaY = (rawCenterY - rawZoomY)*scale;
+//   var zoomAround = function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
+//   // Zoom
+//   zoom(scaleBy);
 
-  // Translate back to zoom center
-  translate(deltaX, deltaY);
+//   // New raw center of viewport
+//   var rawCenterX = -x + Math.min(viewportWidth, curWidth)/2/scale;
+//   var rawCenterY = -y + Math.min(viewportHeight, curHeight)/2/scale;
 
-  if (!doNotUpdateLast) {
-    updateLastScale();
-    updateLastPos();
-  }
-  };
+//   // Delta
+//   var deltaX = (rawCenterX - rawZoomX)*scale;
+//   var deltaY = (rawCenterY - rawZoomY)*scale;
 
-  var zoomCenter = function (scaleBy) {
+//   // Translate back to zoom center
+//   translate(deltaX, deltaY);
+
+//   if (!doNotUpdateLast) {
+//     updateLastScale();
+//     updateLastPos();
+//   }
+//   };
+
+//   var zoomCenter = function (scaleBy) {
     
-  // Center of viewport
-  var zoomX = -x + Math.min(viewportWidth, curWidth)/2/scale;
-  var zoomY = -y + Math.min(viewportHeight, curHeight)/2/scale;
+//   // Center of viewport
+//   var zoomX = -x + Math.min(viewportWidth, curWidth)/2/scale;
+//   var zoomY = -y + Math.min(viewportHeight, curHeight)/2/scale;
 
-  zoomAround(scaleBy, zoomX, zoomY);
-  };
+//   zoomAround(scaleBy, zoomX, zoomY);
+//   };
 
-  var zoomIn = document.getElementById("zoomIn");
-  var zoomOut = document.getElementById("zoomOut");
-  zoomIn.addEventListener("click",function(){
+//   var zoomIn = document.getElementById("zoomIn");
+//   var zoomOut = document.getElementById("zoomOut");
+//   zoomIn.addEventListener("click",function(){
     
-    zoomCenter(1.25); //Adjust this number to set how much you scale in and out
-  });
-  zoomOut.addEventListener("click", function(){
+//     zoomCenter(1.25); //Adjust this number to set how much you scale in and out
+//   });
+//   zoomOut.addEventListener("click", function(){
 
-    zoomCenter(.80); //Adjust this number to set how much you scale in and out .25 will zoom out all the way 1 will not zoom out
-  });
+//     zoomCenter(.80); //Adjust this number to set how much you scale in and out .25 will zoom out all the way 1 will not zoom out
+//   });
 
-  modalImg.addEventListener("load", function(){
-    console.log("image loaded");
-    console.log( { x: x, y: y });
-    console.log(scale);
+//   modalImg.addEventListener("load", function(){
+//     console.log("image loaded");
+//     console.log( { x: x, y: y });
+//     console.log(scale);
 
 
-  container = modalImg.parentElement;
+//   container = modalImg.parentElement;
 
-  disableImgEventHandlers();
+//   disableImgEventHandlers();
 
-  imgWidth = 1200;
-  imgHeight = 882;
-  console.log(imgWidth ,  imgHeight);
-  viewportWidth =modalImg.parentElement.offsetWidth;
-  scale = viewportWidth/imgWidth;
-  lastScale = scale;
-  viewportHeight = modalImg.parentElement.offsetHeight;
-  curWidth = imgWidth*scale;
-  curHeight = imgHeight*scale;
+//   imgWidth = 1200;
+//   imgHeight = 882;
+//   console.log(imgWidth ,  imgHeight);
+//   viewportWidth =modalImg.parentElement.offsetWidth;
+//   scale = viewportWidth/imgWidth;
+//   lastScale = scale;
+//   viewportHeight = modalImg.parentElement.offsetHeight;
+//   curWidth = imgWidth*scale;
+//   curHeight = imgHeight*scale;
 
-  var hammer = new Hammer(container, {
-    domEvents: true
-  });
+//   var hammer = new Hammer(container, {
+//     domEvents: true
+//   });
 
-  hammer.get('pinch').set({
-    enable: true
-  });
+//   hammer.get('pinch').set({
+//     enable: true
+//   });
 
-  hammer.on('pan', function (e) {
-    translate(e.deltaX, e.deltaY);
-  });
+//   hammer.on('pan', function (e) {
+//     translate(e.deltaX, e.deltaY);
+//   });
 
-  hammer.on('panend', function (e) {
-    updateLastPos();
-  });
+//   hammer.on('panend', function (e) {
+//     updateLastPos();
+//   });
 
-  hammer.on('pinch', function (e) {
+//   hammer.on('pinch', function (e) {
 
-    // We only calculate the pinch center on the first pinch event as we want the center to
-    // stay consistent during the entire pinch
-    if (pinchCenter === null) {
-      pinchCenter = rawCenter(e);
-      var offsetX = pinchCenter.x*scale - (-x*scale + Math.min(viewportWidth, curWidth)/2);
-      var offsetY = pinchCenter.y*scale - (-y*scale + Math.min(viewportHeight, curHeight)/2);
-      pinchCenterOffset = { x: offsetX, y: offsetY };
-    }
+//     // We only calculate the pinch center on the first pinch event as we want the center to
+//     // stay consistent during the entire pinch
+//     if (pinchCenter === null) {
+//       pinchCenter = rawCenter(e);
+//       var offsetX = pinchCenter.x*scale - (-x*scale + Math.min(viewportWidth, curWidth)/2);
+//       var offsetY = pinchCenter.y*scale - (-y*scale + Math.min(viewportHeight, curHeight)/2);
+//       pinchCenterOffset = { x: offsetX, y: offsetY };
+//     }
 
-    // When the user pinch zooms, she/he expects the pinch center to remain in the same
-    // relative location of the screen. To achieve this, the raw zoom center is calculated by
-    // first storing the pinch center and the scaled offset to the current center of the
-    // image. The new scale is then used to calculate the zoom center. This has the effect of
-    // actually translating the zoom center on each pinch zoom event.
-    var newScale = restrictScale(scale*e.scale);
-    var zoomX = pinchCenter.x*newScale - pinchCenterOffset.x;
-    var zoomY = pinchCenter.y*newScale - pinchCenterOffset.y;
-    var zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
+//     // When the user pinch zooms, she/he expects the pinch center to remain in the same
+//     // relative location of the screen. To achieve this, the raw zoom center is calculated by
+//     // first storing the pinch center and the scaled offset to the current center of the
+//     // image. The new scale is then used to calculate the zoom center. This has the effect of
+//     // actually translating the zoom center on each pinch zoom event.
+//     var newScale = restrictScale(scale*e.scale);
+//     var zoomX = pinchCenter.x*newScale - pinchCenterOffset.x;
+//     var zoomY = pinchCenter.y*newScale - pinchCenterOffset.y;
+//     var zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
 
-    zoomAround(e.scale, zoomCenter.x, zoomCenter.y, true);
-  });
+//     zoomAround(e.scale, zoomCenter.x, zoomCenter.y, true);
+//   });
 
-  hammer.on('pinchend', function (e) {
-    updateLastScale();
-    updateLastPos();
-    pinchCenter = null;
-  });
+//   hammer.on('pinchend', function (e) {
+//     updateLastScale();
+//     updateLastPos();
+//     pinchCenter = null;
+//   });
 
-  hammer.on('doubletap', function (e) {
-    var c = rawCenter(e);
-    zoomAround(1.25, c.x, c.y);
-  });
-
-  });
-    
-});
+//   hammer.on('doubletap', function (e) {
+//     var c = rawCenter(e);
+//     zoomAround(1.25, c.x, c.y);
+//   });
+// });

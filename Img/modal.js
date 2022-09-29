@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Get the modal
     var modal = document.getElementById("myModal");
-    var modalImg = document.getElementById("modalImg");
+    var modalImg = document.getElementById("pinch-zoom-image-id");
 
     //set tap param
     var Tap = new Hammer.Tap({
