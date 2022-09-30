@@ -212,7 +212,7 @@ var onLoad = function () {
     var zoomY = pinchCenter.y*newScale - pinchCenterOffset.y;
     var zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
 
-    zoomAround(e.scale, zoomCenter.x, zoomCenter.y, true);
+    zoomAround(e.scale, zoomCenter.x, zoomCenter.y); //removed true from this
   });
 
   hammer.on('pinchend', function (e) {
