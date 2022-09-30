@@ -135,7 +135,7 @@ var zoomAround = function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
   if (!doNotUpdateLast) {
   updateLastScale();
   updateLastPos();
-  console.log(2);
+  //console.log(2);
   }
 };
 
@@ -188,7 +188,7 @@ var onLoad = function () {
 
   hammer.on('panend', function (e) {
     updateLastPos();
-      console.log(3);//this pan action gets run for  each time the modal is opened up.
+      //console.log(3);//this pan action gets run for  each time the modal is opened up.
   });
 
   hammer.on('pinch', function (e) {
@@ -218,9 +218,10 @@ var onLoad = function () {
   hammer.on('pinchend', function (e) {
     updateLastScale();
     updateLastPos();
-    console.log(4);
+    //console.log(4);
     pinchCenter = null;
   });
+
 
   //close modal and reset the hammer object
   var span = document.getElementsByClassName("close")[0];
@@ -228,42 +229,20 @@ var onLoad = function () {
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     hammer.destroy();
-    console.log("destroy");
     zoomCenter(.25, true);
-    console.log("zoom out");
     document.getElementById("myModal").style.display = "none";  
     imgWidth = null;
-      imgHeight = null;
-      viewportWidth = null;
-      viewportHeight = null;
-      scale = null;
-      lastScale = null;
-      container = null;
-      //  img = null;
-      modalImg = null
-      x = 0;
-      lastX = 0;
-      y = 0;
-      lastY = 0;
-      // pinchCenter = null;
-      // console.log(imgHeight);
-      // console.log(imgWidth);
-      // console.log(viewportHeight);
-      // console.log(viewportWidth);
-      // console.log(scale);
-      // console.log(lastScale);
-      // console.log(container);
-      // console.log(modalImg);
-      // console.log(x);
-      // console.log(y);
-      // console.log(lastX);
-      // console.log(lastY);
-      // console.log(pinchCenter);
-    
+    imgHeight = null;
+    viewportWidth = null;
+    viewportHeight = null;
+    scale = null;
+    lastScale = null;
+    container = null;
+    modalImg = null
+    x = 0;
+    lastX = 0;
+    y = 0;
+    lastY = 0;
   }
-  // hammer.on('doubletap', function (e) {
-  //   var c = rawCenter(e);
-  //   zoomAround(1.25, c.x, c.y);
-  // });
 
 };
