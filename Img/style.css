@@ -141,9 +141,7 @@ i {
 
 
 /* Modal Content (Image) */
-.pinch-zoom-image {
-    width: 100%;
-}
+
 
 /* #modalImg {
     border-radius: 5px;
@@ -220,6 +218,11 @@ i {
 .pinch-zoom-container {
     overflow: hidden;
     height: 90%;
-    width: 1248px;
+    width: 70%;
+    touch-action: none !important;
 }
 
+.pinch-zoom-image {
+    width: 100%;
+    touch-action: none !important;
+}
