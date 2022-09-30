@@ -47,6 +47,7 @@ var absolutePosition = function (el) {
     y += el.offsetTop;
     el = el.offsetParent;
   }
+  console.log({ x: x, y: y });
   return { x: x, y: y };
 };
 
@@ -56,7 +57,7 @@ var restrictScale = function (scale) {
   } else if (scale > MAX_SCALE) {
     scale = MAX_SCALE;
   }
-
+  console.log(`60 scale ${scale}`);
   return scale;
 };
 
@@ -66,6 +67,7 @@ var restrictRawPos = function (pos, viewportDim, imgDim) {
   } else if (pos > 0) { // too far right/down?
     pos = 0;
   }
+  console.log(`70 pos ${pos}`);
   return pos;
 };
 
@@ -135,7 +137,7 @@ var zoomAround = function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
   if (!doNotUpdateLast) {
   updateLastScale();
   updateLastPos();
-  //console.log(2);
+  console.log(2);
   }
 };
 
@@ -144,19 +146,16 @@ var zoomCenter = function (scaleBy, bool) {
   // Center of viewport
   var zoomX = -x + Math.min(viewportWidth, curWidth)/2/scale;
   var zoomY = -y + Math.min(viewportHeight, curHeight)/2/scale;
-
+  console.log(`zoom x ${zoomX} zoom y ${zoomY}`);
   zoomAround(scaleBy, zoomX, zoomY, bool);
 };
 
-var zoomIn = document.getElementById("zoomIn");
-var zoomOut = document.getElementById("zoomOut");
-
-zoomIn.addEventListener("click",function(){
+var zoomIn = function(){
   zoomCenter(1.10); //Adjust this number to set how much you scale in and out
-});
-zoomOut.addEventListener("click", function(){
+};
+var zoomOut=  function(){
   zoomCenter(.90); //Adjust this number to set how much you scale in and out .25 will zoom out all the way 1 will not zoom out
-});
+};
 
 var onLoad = function () {
   
@@ -179,16 +178,19 @@ var onLoad = function () {
   });
 
   hammer.get('pinch').set({
-    enable: true
+    enable: false
   });
 
   hammer.on('pan', function (e) {
     translate(e.deltaX, e.deltaY);
+    
+    console.log(`translate: ${e.deltaX}  ${e.deltaY},  scale ${scale}`);
   });
 
   hammer.on('panend', function (e) {
-    updateLastPos();
-      //console.log(3);//this pan action gets run for  each time the modal is opened up.
+      updateLastPos();
+      
+      console.log(3);//this pan action gets run for  each time the modal is opened up.
   });
 
   hammer.on('pinch', function (e) {
@@ -200,6 +202,7 @@ var onLoad = function () {
       var offsetX = pinchCenter.x*scale - (-x*scale + Math.min(viewportWidth, curWidth)/2);
       var offsetY = pinchCenter.y*scale - (-y*scale + Math.min(viewportHeight, curHeight)/2);
       pinchCenterOffset = { x: offsetX, y: offsetY };
+      console.log(`pinch center off ${pinchCenterOffset}`)
     }
 
     // When the user pinch zooms, she/he expects the pinch center to remain in the same
@@ -218,9 +221,15 @@ var onLoad = function () {
   hammer.on('pinchend', function (e) {
     updateLastScale();
     updateLastPos();
-    //console.log(4);
+    console.log(4);
     pinchCenter = null;
   });
+
+  // hammer.on('doubletap', function (e) {
+  //   // var c = rawCenter(e);
+  //   // zoomAround(1.25, c.x, c.y);
+  //   //zoomCenter(1.25);
+  // });
 
 
   //close modal and reset the hammer object
@@ -229,7 +238,9 @@ var onLoad = function () {
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     hammer.destroy();
+    console.log("destroy")
     zoomCenter(.25, true);
+    console.log("zoom out")
     document.getElementById("myModal").style.display = "none";  
     imgWidth = null;
     imgHeight = null;

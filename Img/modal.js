@@ -8,9 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
       taps: 1
     });
 
-
+    //get all the img elements
     const myNodelist = document.querySelectorAll("img");
     
+    // loop through img elements and assign hammer tap to each
     for (let i = 0; i < myNodelist.length; i++) {
       manager = new Hammer.Manager(myNodelist[i])
       manager.add(Tap);
