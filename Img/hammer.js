@@ -139,13 +139,13 @@ var zoomAround = function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
   }
 };
 
-var zoomCenter = function (scaleBy) {
+var zoomCenter = function (scaleBy, bool) {
 
   // Center of viewport
   var zoomX = -x + Math.min(viewportWidth, curWidth)/2/scale;
   var zoomY = -y + Math.min(viewportHeight, curHeight)/2/scale;
 
-  zoomAround(scaleBy, zoomX, zoomY);
+  zoomAround(scaleBy, zoomX, zoomY, bool);
 };
 
 var zoomIn = document.getElementById("zoomIn");
@@ -222,12 +222,15 @@ var onLoad = function () {
     pinchCenter = null;
   });
 
-
+  //close modal and reset the hammer object
   var span = document.getElementsByClassName("close")[0];
 
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     hammer.destroy();
+    console.log("destroy");
+    zoomCenter(.25, true);
+    console.log("zoom out");
     document.getElementById("myModal").style.display = "none";  
     imgWidth = null;
       imgHeight = null;

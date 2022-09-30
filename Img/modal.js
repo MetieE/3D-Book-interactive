@@ -17,21 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
       manager.on('tap', openModal);
     }
 
-
-    // var img1 = document.getElementById("myImg01");
-    // var img2 = document.getElementById("myImg02");
-    // var img3 = document.getElementById("myImg03");
-
-    //   tapOpen( new Hammer.Manager(img1));
-    //   tapOpen( new Hammer.Manager(img2));
-    //   tapOpen( new Hammer.Manager(img3));
-
-
-    // function tapOpen(manager){
-    //   manager.add(Tap);
-    //   manager.on('tap', openModal);
-    // }
-
+    // put this in the hammer.js file to clear the hammer object on close
     // // Get the <span> element that closes the modal
     // var span = document.getElementsByClassName("close")[0];
     
