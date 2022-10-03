@@ -18,22 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
       manager.on('tap', openModal);
     }
 
-    // put this in the hammer.js file to clear the hammer object on close
-    // // Get the <span> element that closes the modal
-    // var span = document.getElementsByClassName("close")[0];
-    
-    // // When the user clicks on <span> (x), close the modal
-    // span.onclick = function() {
-    //   modal.style.display = "none";
-    // }
-
+    // displays modal, disables image from reloading on tap, fills modal 
+    //image from target src and runs the pinch and zoom functionality from hammer.js
     function openModal(e){
         modal.style.display = "block";
         modalImg.style.pointerEvents = "none";
         modalImg.src = e.target.src;
         viewImg();
     }
-
-    
-  
 });
