@@ -29,7 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function openModal(e){
         modal.style.display = "block";
+        modalImg.style.pointerEvents = "none";
         modalImg.src = e.target.src;
+        viewImg();
     }
+
+    
   
 });
