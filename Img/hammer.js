@@ -224,13 +224,6 @@ var viewImg = function () {
     pinchCenter = null;
   });
 
-  // this does not run because the ponter-events was set to none in modal.js
-  // hammer.on('doubletap', function (e) {
-  //   console.log("doubletap");
-  //   var c = rawCenter(e);
-  //   zoomAround(1.25, c.x, c.y);
-  // });
-
   //close modal and reset the hammer object
   var span = document.getElementsByClassName("close")[0];
 
