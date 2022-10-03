@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const pageFlip = new St.PageFlip(
         document.getElementById("demoBookExample"),
         {
-            width: 860, // base page width
-            height: 700, // base page height
+            width: 864, // base page width
+            height: 710, // base page height
 
             size: "fixed",
             

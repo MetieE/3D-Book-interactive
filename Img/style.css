@@ -86,11 +86,11 @@ body {
     font: 14px FF-Scala Sans Pro;
     color:  #e5d1b9;
     top:5px; 
-    text-align:center;
+    text-align: center;
 }
 
 .img-with-text img {
-    height: 610px;
+    height: 627px;
 }
     
 .caption{
@@ -98,7 +98,7 @@ body {
     color: #e5d1b9;
     line-height: 1.6;
     text-align:center;
-    width: 800px;
+    width: 820px;
     font-family: ff-scala-sans-pro, sans-serif;
     font-size: 14px; 
 }
