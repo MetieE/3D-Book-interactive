@@ -129,7 +129,7 @@ var zoomAround = function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
   var deltaY = (rawCenterY - rawZoomY)*scale;
 
   // Translate back to zoom center
-  translate(deltaX, deltaY);
+  //translate(deltaX, deltaY);
 
   if (!doNotUpdateLast) {
   updateLastScale();
