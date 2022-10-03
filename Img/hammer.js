@@ -128,6 +128,7 @@ var zoomAround = function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
   var deltaX = (rawCenterX - rawZoomX)*scale;
   var deltaY = (rawCenterY - rawZoomY)*scale;
 
+  // this messes with the repositioning when opening a new image
   // Translate back to zoom center
   //translate(deltaX, deltaY);
 
@@ -215,7 +216,7 @@ var viewImg = function () {
     var zoomY = pinchCenter.y*newScale - pinchCenterOffset.y;
     var zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
 
-    zoomAround(e.scale, zoomCenter.x, zoomCenter.y, true);
+    zoomAround(e.scale, zoomCenter.x, zoomCenter.y);
   });
 
   hammer.on('pinchend', function (e) {
@@ -232,7 +233,7 @@ var viewImg = function () {
   span.onclick = function() {
     hammer.destroy();
     //console.log("destroy");
-    zoomCenter(.25, true);
+    zoomCenter(.25, false);
     //console.log("zoom out");
     document.getElementById("myModal").style.display = "none";  
   }
