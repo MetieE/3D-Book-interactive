@@ -5,17 +5,15 @@
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-
     <title>Explore the Silver Horn Book of Drawings</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://use.typekit.net/xyu4lmf.css">
-    <script src="https://kit.fontawesome.com/b0f29e9bfe.js" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/b0f29e9bfe.js" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/69e6e0bdba.js"></script>
+    <!-- <script src="https://kit.fontawesome.com/b0f29e9bfe.js" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
-    <!-- <script src="https://cdnjs.com/libraries/hammer.js/"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script> -->
-    <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+    <!-- <script src="https://hammerjs.github.io/dist/hammer.js"></script> -->
     <script src="./book.js" defer></script>
     <script src="./hammer.js" defer></script>
     <script src="./modal.js" defer></script>
@@ -849,20 +847,20 @@
         <p>Next</p>
     </button>
 
+    <div class="home-btn">
+        <button id="home-btn" >
+            <i class="fas fa-book"></i>
+            <br>
+            <p>Close Book</p>
+            <p>[<span class="page-current">1</span> of <span class="page-total">-</span>]</p>
+        </button>
+        <div style=" display: none; visibility: hidden;">
+            State: <i class="page-state">read</i>, orientation: <i class="page-orientation">landscape</i>
+        </div>
+    </div> 
     <!-- footer-->
     <div class="footer">
-        <div class="home-btn">
-            <button id="home-btn" >
-                <i class="fa fa-book"></i>
-                <br>
-                <p>Close Book</p>
-                <p>[<span class="page-current">1</span> of <span class="page-total">-</span>]</p>
-            </button>
-            <div style=" display: none; visibility: hidden;">
-                State: <i class="page-state">read</i>, orientation: <i class="page-orientation">landscape</i>
-            </div>
-        </div> 
-        <div style="text-align: center;"> 
+        <div> 
             <p>Silver Horn (Haungooah) (Kiowa, Oklahoma, 1860-1940).<br>
             Book of 75 drawings, about 1883. Graphite and colored pencil on paper.<br>
             Gift of Mr. and Mrs. Dudley C. Brown, 64-9/1-75.<br>
